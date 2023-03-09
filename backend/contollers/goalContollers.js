@@ -76,15 +76,26 @@ const putGoals = asyncHandler(async (request, response) => {
 // route: DELETE /api/goals/:id
 const deleteGoals = asyncHandler(async (request, response) => {
 
-    const goal = await Goal.findById(request.params.id);
+    const user = await User.findById(request.user.id); // request.user <- middleware
+    const goal = await Goal.findById(request.params.id);  // request.pamars <- url param
+
+    if (!user ) {
+        response.status(401)
+        throw new Error("User not found")
+    }
 
     if (!goal ) {
         response.status(400)
         throw new Error("Goal not found")
     }
 
-    const removedGoal = await goal.remove()
-    response.status(200).json(removedGoal)
+    if (goal.user.toString() !== user.id) {
+        response.status(400)
+        throw new Error('Not allowed to delete')
+    }
+
+    const deletedGoal = await Goal.findByIdAndDelete(request.params.id); // goal.remove() doesn't seem to work (???)
+    response.status(200).json(deletedGoal)
 })
 
 
