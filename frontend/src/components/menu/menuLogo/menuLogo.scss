@@ -1,0 +1,12 @@
+.menu-logo-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 20%;
+    .menu-logo {
+        font-size: 25px;
+        color:white;
+    }
+}
