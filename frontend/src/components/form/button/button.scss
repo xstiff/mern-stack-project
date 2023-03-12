@@ -1,0 +1,27 @@
+.button-container {
+    width:100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    .button {
+        width: 300px;
+        outline: none;
+        border: none;
+        padding: 16px;
+        cursor: pointer;
+        transition: all ease-in-out .1s;
+        user-select: none;
+        font-size: 16px;
+        
+        &:active {
+            transform: scale(1.1);
+        }
+
+        &:hover {
+            background-color: rgb(216, 216, 216);
+        }
+    
+    }
+}

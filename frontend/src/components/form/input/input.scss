@@ -1,0 +1,27 @@
+.input-container {
+    width:100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+    .label {
+        width:100%;
+        margin:0;
+    }
+
+    .input {
+        width:300px;
+        padding: 14px 16px;
+        outline: none;
+        border:none;
+        margin-top:5px;
+        margin-bottom: 15px;
+      
+
+        &:focus {
+            outline: 2px solid yellowgreen;
+        }
+    }
+}

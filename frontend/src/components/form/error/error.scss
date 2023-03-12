@@ -1,0 +1,11 @@
+.error-message-container {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+    .error-message {
+        color: rgb(226, 85, 85);
+        margin:0;
+    }
+}

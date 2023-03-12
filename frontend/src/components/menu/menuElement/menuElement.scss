@@ -6,6 +6,10 @@
         
     }
 
+    &.active a {
+        color: yellowgreen;
+    }
+
     a {
         color:white;
         text-decoration: none;

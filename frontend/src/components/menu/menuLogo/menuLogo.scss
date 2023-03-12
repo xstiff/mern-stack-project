@@ -5,8 +5,11 @@
     justify-content: center;
     flex-wrap: nowrap;
     width: 20%;
-    .menu-logo {
-        font-size: 25px;
-        color:white;
+    a {
+        text-decoration: none;
+        .menu-logo {
+            font-size: 25px;
+            color:white;
+        }
     }
 }
