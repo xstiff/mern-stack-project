@@ -1,9 +1,14 @@
 import { Button } from './button/button';
 import { Input } from './input/input';
 import { ErrorMessage } from './error/error';
-import {useState} from 'react';
-
+import {useEffect, useState} from 'react';
 import { ValidatePassword, ValidateEmail, ValidateName, ValidateRePasswords } from './formValidations';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch} from 'react-redux';
+import { toast } from 'react-toastify'
+import { register, reset, logout } from '../../redux/auth/authSlice';
+import { Spinner } from '../spinner/Spinner';
+
 
 export const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -11,6 +16,30 @@ export const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate()
+
+
+    const authSelector = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const {
+        user,
+        isError,
+        isLoading,
+        isSuccess,
+        message,} = authSelector;
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message);
+        }
+        if (isSuccess || user) {
+            navigate('/');
+            toast.success(message);
+        }
+
+        dispatch(reset());
+    },[user, isError, isLoading, isSuccess, message, navigator, dispatch]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,16 +62,27 @@ export const RegisterForm = () => {
             return setError(rePasswordValid.message);
         }
 
+        const userData = {
+            name,
+            email,
+            password,
+          }
+
+        dispatch(register(userData))
+
         setEmail('');
         setName('');
         setPassword('');
         setRePassword('');
         setError('');
-        alert('[Register] Success! ( not really )');
+        // alert('[Register] Success! ( not really )');
         return true
     }
 
-    return(
+
+    if (isLoading) return(<Spinner/>)
+
+    return( 
         <form className='register-form-container' onSubmit={(e) => handleSubmit(e)}>
 
             <Input type='email' placeholder='Email' inputFunc={ (inputElement) => {
@@ -86,10 +126,32 @@ export const RegisterForm = () => {
 
 export const LoginForm = () => {
     
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState(' ');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const authSelector = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const {
+        user,
+        isError,
+        isLoading,
+        isSuccess,
+        message,} = authSelector;
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message);
+        }
+        if (isSuccess || user) {
+            navigate('/');
+            toast.success(message);
+        }
+
+        dispatch(reset());
+    },[user, isError, isLoading, isSuccess, message, navigator, dispatch]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -105,12 +167,18 @@ export const LoginForm = () => {
             return setError(PasswordValid.message);
         }
         
+
+        const userData = {
+            email,
+            password,
+        }
+
         setEmail('');
         setPassword('');
         setError('');
 
-
-        alert('[Login] Success! ( not really )');
+        
+        
         return true;
     }
 

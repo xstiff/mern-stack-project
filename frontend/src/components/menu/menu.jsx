@@ -1,11 +1,16 @@
 import { MenuContainer } from "./menuContainer/menuContainer"
 import { MenuElement } from "./menuElement/menuElement"
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import { MenuResetAll, MenuSetActive } from "./functions/menuFunctions";
+import { useSelector } from "react-redux";
 export const Menu = () => {
-    const [IsLogged, setIsLogged] = useState(false);
+
     const location = useLocation()
+
+    const authSelector = useSelector(state => state.auth);
+    const { user } = authSelector;
+
 
     useEffect( () => {
         let path = location.pathname.slice(1);
@@ -18,15 +23,16 @@ export const Menu = () => {
     return(
         
         <MenuContainer>
-            <MenuElement url="" text="Toggle Logged in / out" onclick={()=>setIsLogged(!IsLogged)}/>
+            {/* <MenuElement url="" text="Toggle Logged in / out" onclick={()=>setIsLogged(!IsLogged)}/> */}
             
-            { IsLogged ? (
+            { user ? (
 
             // LOGGED IN
             <>
-                <MenuElement url="goals" text="My goals"/>
-                <MenuElement url="profile" text="Profile"/>
                 <MenuElement url="logout" text="Logout"/>
+                <MenuElement url="goals" text="My goals"/>
+                <MenuElement url="profile" text={`Hi, ${user.name}`}/>
+                
             </>
 
 

@@ -10,7 +10,7 @@ export const MidHeader = ({text, color = "black", optClass = ""}) => {
 
     return(
         <div className={`mid-header-container ${optClass}`}>
-            <h1 className='mid-header'>
+            <h1 className='mid-header' style={styles}>
                 { text }
             </h1>
         </div>
