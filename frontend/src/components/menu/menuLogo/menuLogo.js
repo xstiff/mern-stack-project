@@ -5,7 +5,7 @@ export const MenuLogo = () => {
         
         <div className="menu-logo-container">
             <Link to={"/"}>
-            <h1 className="menu-logo">
+            <h1 className="menu-logo home">
                 Goal Setter
             </h1>
             </Link>

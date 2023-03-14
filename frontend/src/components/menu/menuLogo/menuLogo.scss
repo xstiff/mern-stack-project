@@ -10,6 +10,12 @@
         .menu-logo {
             font-size: 25px;
             color:white;
+            transition: all ease-in-out .2s ;
+
+        }
+
+        h1.active {
+            color: yellowgreen;
         }
     }
 }

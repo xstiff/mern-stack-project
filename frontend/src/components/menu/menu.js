@@ -11,13 +11,14 @@ export const Menu = () => {
         let path = location.pathname.slice(1);
         MenuResetAll();
         if (path) MenuSetActive(path);
+        else MenuSetActive("home");
     }, [location])
 
     
     return(
         
         <MenuContainer>
-            <MenuElement url="howitworks" text="How it works?" onclick={()=>setIsLogged(!IsLogged)}/>
+            <MenuElement url="" text="Toggle Logged in / out" onclick={()=>setIsLogged(!IsLogged)}/>
             
             { IsLogged ? (
 
