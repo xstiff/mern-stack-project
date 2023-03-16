@@ -16,7 +16,9 @@ export const Deny = () => {
     }
 
     useEffect( ()=> {
-        navigate("/");
+        setTimeout(() => {
+            navigate("/");
+        }, 500);
     }, [location])
     return(
         <>

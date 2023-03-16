@@ -6,7 +6,7 @@ import { ValidatePassword, ValidateEmail, ValidateName, ValidateRePasswords } fr
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
 import { toast } from 'react-toastify'
-import { register, reset, logout } from '../../redux/auth/authSlice';
+import { register, reset, logout, login } from '../../redux/auth/authSlice';
 import { Spinner } from '../spinner/Spinner';
 
 
@@ -130,9 +130,9 @@ export const LoginForm = () => {
     const [email, setEmail] = useState(' ');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
     const authSelector = useSelector(state => state.auth);
     const dispatch = useDispatch();
+
     const {
         user,
         isError,
@@ -159,7 +159,6 @@ export const LoginForm = () => {
 
         const EmailValid = ValidateEmail(email);
         const PasswordValid = ValidatePassword(password);
-
         if (EmailValid.status === false) {
             return setError(EmailValid.message);
         }
@@ -177,7 +176,7 @@ export const LoginForm = () => {
         setPassword('');
         setError('');
 
-        
+        dispatch(login(userData));
         
         return true;
     }
@@ -190,7 +189,7 @@ export const LoginForm = () => {
             value={email}
             required
             />
-
+ 
             <Input type='password' placeholder='Password' inputFunc={ (inputElement) => {
                 setPassword(inputElement.target.value) 
             }}

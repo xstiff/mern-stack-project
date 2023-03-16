@@ -1,6 +1,6 @@
 
 //
-// VALIDATORS FOR FORMS
+// VALIDATORS 
 //
 
 const Required = ( val ) => {
@@ -134,7 +134,5 @@ export const ValidateName = (val) => {
     
 }
 
-export const ClearForm = (form) => {
-    form.reset();
-}
+export const ClearForm = (form) => form.reset();
 

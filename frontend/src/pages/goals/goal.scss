@@ -1,0 +1,41 @@
+.goals-wrapper {
+    width:100%;
+    height: 100%;
+    
+    .goal-table-wrapper {
+        width:100%;
+
+        table {
+            width: 100%;
+            svg {
+                padding: 7px;
+                font-size: 1.5em;
+            }
+            thead{
+                width: 100%;
+                tr{
+                    width:100%;
+                    
+                    th {
+                        width:25%;
+                        text-align: center;
+                        font-size: 1.5em;
+                    }
+                }
+            }
+
+            tbody{
+                width:100%;
+                tr{
+                    width:100%;
+                    td {
+                        width:25%;
+                        text-align: center;
+
+                        
+                    }
+                }
+            }
+        }
+    }
+}

@@ -11,6 +11,8 @@ export const Profile = () => {
     const authSelector = useSelector(state => state.auth);
     const { user } = authSelector;
 
+    console.log(authSelector)
+
     return(
         
             <div className="profile-page-wrapper">

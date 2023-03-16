@@ -5,6 +5,9 @@ export const Logout = () => {
 
     useEffect(() => {
         localStorage.clear()
+        setTimeout(() => {
+            window.location.reload()
+        }, 500);
     }, [])
 
     return(
