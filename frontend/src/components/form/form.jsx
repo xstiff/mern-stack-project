@@ -4,11 +4,6 @@ import { ErrorMessage } from './error/error';
 import {useEffect, useState} from 'react';
 import { ValidatePassword, ValidateEmail, ValidateName, ValidateRePasswords } from './formValidations';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch} from 'react-redux';
-import { toast } from 'react-toastify'
-import { register, reset, logout, login } from '../../redux/auth/authSlice';
-import { Spinner } from '../spinner/Spinner';
-
 
 export const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -16,29 +11,6 @@ export const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate()
-
-
-    const authSelector = useSelector(state => state.auth);
-    const dispatch = useDispatch();
-    const {
-        user,
-        isError,
-        isLoading,
-        isSuccess,
-        message,} = authSelector;
-
-    useEffect(() => {
-        if (isError) {
-            toast.error(message);
-        }
-        if (isSuccess || user) {
-            navigate('/');
-            toast.success(message);
-        }
-
-        dispatch(reset());
-    },[user, isError, isLoading, isSuccess, message, navigator, dispatch]);
 
 
     const handleSubmit = (e) => {
@@ -68,19 +40,15 @@ export const RegisterForm = () => {
             password,
           }
 
-        dispatch(register(userData))
-
         setEmail('');
         setName('');
         setPassword('');
         setRePassword('');
         setError('');
-        // alert('[Register] Success! ( not really )');
+        alert('[Register] Success! ( not really )');
         return true
     }
 
-
-    if (isLoading) return(<Spinner/>)
 
     return( 
         <form className='register-form-container' onSubmit={(e) => handleSubmit(e)}>
@@ -130,27 +98,9 @@ export const LoginForm = () => {
     const [email, setEmail] = useState(' ');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const authSelector = useSelector(state => state.auth);
-    const dispatch = useDispatch();
 
-    const {
-        user,
-        isError,
-        isLoading,
-        isSuccess,
-        message,} = authSelector;
 
-    useEffect(() => {
-        if (isError) {
-            toast.error(message);
-        }
-        if (isSuccess || user) {
-            navigate('/');
-            toast.success(message);
-        }
 
-        dispatch(reset());
-    },[user, isError, isLoading, isSuccess, message, navigator, dispatch]);
 
 
     const handleSubmit = (e) => {
@@ -176,7 +126,7 @@ export const LoginForm = () => {
         setPassword('');
         setError('');
 
-        dispatch(login(userData));
+        
         
         return true;
     }

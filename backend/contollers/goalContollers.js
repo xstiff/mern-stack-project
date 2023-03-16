@@ -6,12 +6,10 @@ const User = require('../models/userModel')
 // route: GET /api/goals
 const getGoals = asyncHandler(async (request, response) => {
     const goals = await Goal.find({ user: request.user.id })
-    // console.log(goals)
-    if (!goals) {
-        throw new Error('Not goals found for this user')
-        response.status(400).json()
+    if (!goals || goals.length === 0 ) {
+        throw new Error('No goals found for this user: ' + request.user.email)
     }
-
+    console.log('GET /api/goals SUCCESS')
     response.status(200).json(goals)
 }) 
  
@@ -19,14 +17,18 @@ const getGoals = asyncHandler(async (request, response) => {
 // route: POST /api/goals
 const setGoals = asyncHandler(async (request, response) => {
 
-    if (!request.body.text) {
+    const {description, title} = request.body;
+    
+    if (!description || !title) {
         response.status(400)
-        throw new Error('Please add a text field')
+        throw new Error('Please add a description and title field ' + request.body.title)
     }
 
     const goal = await Goal.create({
         user: request.user.id,
-        text: request.body.text,
+        description: request.body.description,
+        title: request.body.title,
+        progress: request.body.progress ? request.body.progress : null,
     })
 
     response.status(200).json(goal)
@@ -44,9 +46,9 @@ const putGoals = asyncHandler(async (request, response) => {
         throw new Error("User not found")
     }
 
-    if (!request.body.text) {
+    if (!request.body.description || !request.body.title) {
         response.status(400)
-        throw new Error('Please add a text field')
+        throw new Error('Please add a description and title field')
     }
 
     if (!goal ) {

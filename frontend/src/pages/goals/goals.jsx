@@ -1,17 +1,18 @@
 import { BigHeader } from "../../components/headers/bigheader"
 import './goal.scss'
 import { GoalElement } from "../../components/goals/goal-element/goalElement"
-import {Tooltip} from "react-tooltip";
+import { GoalForm } from "../../components/goals/goal-form/goalForm";
 
 
 
 export const Goals = () => {
 
-    return(
+
+
+    return  (
         <div className="goals-wrapper">
             <BigHeader text="Manage your goals" color="black"/>
             <div className="goal-table-wrapper">
-            <Tooltip id="my-tooltip" />
                 <table>
                     <thead>
                         <tr>
@@ -22,11 +23,12 @@ export const Goals = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <GoalElement title="Goal no. 1" description="fix session expire xd" progress={false} />
-                        <GoalElement title="Goal no. 2" description="go outside" progress={true} />
-                    </tbody>
+                        {/* <GoalElement /> */}
 
+                    </tbody>
                 </table>
+
+                <GoalForm />
             </div>
         </div>
     )

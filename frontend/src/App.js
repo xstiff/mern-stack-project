@@ -16,12 +16,10 @@ import { Profile } from './pages/profile/profile';
 import { Logout } from './pages/logout/logout';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import { useSelector } from 'react-redux';
 import './App.scss'
 import { Deny } from './pages/deny/deny';
 
 const App = () => {
-  const { user } = useSelector((state) => state.auth);
 
 
   return (
@@ -31,17 +29,17 @@ const App = () => {
           <div className='body-wrapper'>
             <Routes>
               <Route path='/' element={<Home/>} />
-              <Route path='/login' element={user ? <Deny/> : <Login/>} />
+              <Route path='/login' element={<Login/>} />
               <Route path='/register' element={
-              user ? <Deny/> : <Register/>
+               <Register/>
               } />
               <Route path='/goals' element={
-              user ? <Goals/> : <Deny/>
+              <Goals/>
               } />
               <Route path='/profile' element={
-                user ? <Profile/> : <Deny/> } />
+               <Profile/> } />
               <Route path='/logout' element={
-                user ? <Logout/> : <Deny/> } />
+               <Logout/> } />
             </Routes>
           </div>
       </Router>

@@ -90,7 +90,7 @@ const getCurrentUser = asyncHandler( async (request, response) => {
                 token: generateToken(_id),
                 id: _id,
                 name,
-                email
+                email,
             }
         )
 })

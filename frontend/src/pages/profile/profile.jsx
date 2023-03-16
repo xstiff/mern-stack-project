@@ -2,21 +2,16 @@ import { BigHeader } from "../../components/headers/bigheader"
 import { MidHeader } from "../../components/headers/midheader"
 import { Separator } from "../../components/separatorLine/separator"
 import { SettingsList } from "../../components/profile/settingsList/settingsList"
-import { useSelector } from "react-redux"
+
 
 
 
 import './profile.scss'
 export const Profile = () => {
-    const authSelector = useSelector(state => state.auth);
-    const { user } = authSelector;
-
-    console.log(authSelector)
-
     return(
         
             <div className="profile-page-wrapper">
-                <BigHeader  text={`Welcome, ${user.name}`}/>
+                <BigHeader  text={`Welcome, none`}/>
                 <Separator height="3px"/>
 
 

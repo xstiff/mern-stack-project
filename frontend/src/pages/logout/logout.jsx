@@ -1,14 +1,6 @@
 import { BigHeader } from "../../components/headers/bigheader";
-import { useEffect } from "react";
 
 export const Logout = () => {
-
-    useEffect(() => {
-        localStorage.clear()
-        setTimeout(() => {
-            window.location.reload()
-        }, 500);
-    }, [])
 
     return(
         <>
