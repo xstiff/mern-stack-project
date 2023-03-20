@@ -62,9 +62,10 @@ const registerUser = asyncHandler( async (request, response) => {
 const loginUser = asyncHandler( async (request, response) => {
     const {email, password} = request.body
     const user = await User.findOne({email})
-    const {_id, name} = user;
+    
 
     if (user && (await bcrypt.compare(password, user.password))) {
+        const {_id, name} = user;
         response.status(201).json(
             {
                 token: generateToken(_id),
@@ -85,7 +86,7 @@ const loginUser = asyncHandler( async (request, response) => {
 // Private route: GET /api/user/me
 const getCurrentUser = asyncHandler( async (request, response) => {
         const {_id, name, email} = await User.findById(request.user.id)
-        response.json(
+        response.status(201).json(
             {
                 token: generateToken(_id),
                 id: _id,

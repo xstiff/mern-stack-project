@@ -1,9 +1,6 @@
 import React from 'react';
 import { Menu } from './components/menu/menu';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-// import { Alert } from './components/alert/alert';
-
-
 
 //
 // Pages
@@ -14,10 +11,13 @@ import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Profile } from './pages/profile/profile';
 import { Logout } from './pages/logout/logout';
+
+import { RequireAuth } from './redux/requireAuth/requireAuth';
+
+
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import './App.scss'
-import { Deny } from './pages/deny/deny';
 
 const App = () => {
 
@@ -33,9 +33,11 @@ const App = () => {
               <Route path='/register' element={
                <Register/>
               } />
-              <Route path='/goals' element={
-              <Goals/>
-              } />
+
+              <Route element={<RequireAuth />}>
+                <Route path='/goals' element={<Goals/>} />
+              </Route>
+
               <Route path='/profile' element={
                <Profile/> } />
               <Route path='/logout' element={
