@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu } from './components/menu/menu';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-
+import {BrowserRouter as Router, Routes, Route, redirect} from 'react-router-dom'
 //
 // Pages
 //
@@ -10,17 +9,15 @@ import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Profile } from './pages/profile/profile';
-import { Logout } from './pages/logout/logout';
-
-import { RequireAuth } from './redux/requireAuth/requireAuth';
+import { RequireAuth, RequireNoAuth } from './redux/requireAuth/requireAuth';
 
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import './App.scss'
+import { NotFound } from './pages/notFound/notFound';
 
 const App = () => {
-
 
   return (
     <>
@@ -29,19 +26,27 @@ const App = () => {
           <div className='body-wrapper'>
             <Routes>
               <Route path='/' element={<Home/>} />
-              <Route path='/login' element={<Login/>} />
-              <Route path='/register' element={
-               <Register/>
-              } />
 
+              {/* Required to be not logged in */}
+              <Route element={<RequireNoAuth />}>
+                <Route path='/login' element={<Login/>} />
+              </Route>
+
+              <Route element={<RequireNoAuth />}>
+                <Route path='/register' element={<Register/>} />
+              </Route>
+
+              {/* Required to be logged in */}
               <Route element={<RequireAuth />}>
                 <Route path='/goals' element={<Goals/>} />
               </Route>
 
-              <Route path='/profile' element={
-               <Profile/> } />
-              <Route path='/logout' element={
-               <Logout/> } />
+              <Route element={<RequireAuth />}>
+                <Route path='/profile/' element={<Profile/> } />
+              </Route>
+
+          	  <Route path="*" element={<NotFound />} />
+
             </Routes>
           </div>
       </Router>

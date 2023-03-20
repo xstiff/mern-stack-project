@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, validateMe } from './authActions';
-import {useDispatch} from 'react-redux';
-
+import { loginUser, validateMe, logOut } from './authActions';
 const userObject = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null; 
+
 
 const initialState = {
     userInfo: userObject ? userObject.userInfo : null,
@@ -16,14 +15,6 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logOut: (state) => {
-            localStorage.clear();
-            state.userInfo = null;
-            state.token = null;
-            state.loading = false;
-            state.success = false;
-            state.error = null;
-        }
     },
     extraReducers: 
     (builder) => {
@@ -37,13 +28,10 @@ const authSlice = createSlice({
             state.loading = false
             state.userInfo = payload.userInfo
             state.userToken = payload.userToken
-            console.log('Fulfiled')
-
         })
         .addCase(loginUser.rejected, (state, {payload}) => {
             state.loading = false
             state.error = payload
-            console.log(payload)
         })
 
         // Validation
@@ -63,16 +51,26 @@ const authSlice = createSlice({
         .addCase(validateMe.rejected, (state, {payload}) => {
             localStorage.clear();
             state.userInfo = null;
+            state.userToken = null;
             state.token = null;
             state.loading = false;
             state.success = false;
             state.error = null;
-            console.log(payload)
+            console.log('Rejected')
+        })
+
+        .addCase(logOut.fulfilled, (state) => {
+            state.userInfo = null;
+            state.userToken = null;
+            state.token = null;
+            state.loading = false;
+            state.success = false;
+            state.error = null;
+            localStorage.removeItem('user');
         })
     }
     
   })
 
-export const {logOut} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -5,7 +5,8 @@ import {useEffect, useState} from 'react';
 import { ValidatePassword, ValidateEmail, ValidateName, ValidateRePasswords } from './formValidations';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/auth/authActions';
-
+import { Spinner } from '../spinner/spinner';
+import { useLocation } from 'react-router-dom';
 export const RegisterForm = () => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -97,13 +98,20 @@ export const LoginForm = () => {
     const [email, setEmail] = useState(' ');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+    const location = useLocation()
     const authSelector = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
+
+    useEffect(() => {
+        if(authSelector.error) {
+            setError(authSelector.error);
+            setPassword('');
+        }
+    }, [authSelector])
+
     const handleSubmit =  async (e) => {
         e.preventDefault();
-
         const EmailValid = ValidateEmail(email);
         const PasswordValid = ValidatePassword(password);
         if (EmailValid.status === false) {
@@ -118,11 +126,12 @@ export const LoginForm = () => {
             email: email.toLowerCase(),
             password: password
         }
-        
-        console.log('Email: ' + email.toLowerCase(), password)
 
         dispatch(loginUser(USER_DATA))
     }
+
+    if (authSelector.loading) return <Spinner/>
+
 
     return(
         <form className='login-form-container' onSubmit={(e) => handleSubmit(e)}>
@@ -146,7 +155,6 @@ export const LoginForm = () => {
             }
 
             <Button text='Login' type='submit' clickFunc={ () => null }/>
-            <button onClick={() => console.log(authSelector)}>authSelector</button>
         </form>
     )
 }

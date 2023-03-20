@@ -1,27 +1,18 @@
 import './settingsList.scss';
 import { SettingsEl } from '../settingsEl/settingsEl';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux'
+import { changePage } from '../../../redux/profile/profileSlice';
 
 export const SettingsList = () => {
-    const location = useLocation();
-    const [path, setPath] = useState("profile");
-    useEffect( () => { 
-        const locParam = location.search.split('category=')[1];
-        if (locParam) setPath(locParam);
-        
-    }, [location])
-    
+    const dispatch = useDispatch()
+
     return(
         <>
             <ul>
-                <SettingsEl text='Profile'/>
-                <SettingsEl text='Change password' option='changepass'/>
-                <SettingsEl text='Lorem' option='random'/>
-                <SettingsEl text='Lorem' option='random'/>
-                <SettingsEl text='Delete account' option='delete'/>
-                <button onClick={() => console.log(path)}>Check path</button>
+                <SettingsEl text='Profile'  onClickFunc={ () => dispatch(changePage("Profile"))  }/>
+                <SettingsEl text='Change name'   onClickFunc={() => dispatch(changePage("Change name"))}/>
+                <SettingsEl text='Change password'  onClickFunc={() => dispatch(changePage("Change password"))} />
+                <SettingsEl text='Delete account' onClickFunc={() => dispatch(changePage("Delete account"))} />
             </ul>
         </>
 

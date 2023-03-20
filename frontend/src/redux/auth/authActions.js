@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { logOut } from './authSlice';
 import axios from 'axios';
 
 const API_URL = '/api/users/';
@@ -35,6 +34,13 @@ export const loginUser = createAsyncThunk(
     }
 )
 
+
+export const logOut = createAsyncThunk(
+    'auth/logout',
+    async () => {
+        return true
+    });
+
 export const validateMe = createAsyncThunk(
     'auth/validate',
     async (USER_TOKEN, {rejectWithValue}) => {
@@ -44,7 +50,7 @@ export const validateMe = createAsyncThunk(
         try {
             const response = await axios.get(API_URL + 'me/', config)
             const { token, id, name, email } = response.data
-            console.log('[validation] ' + response.data)
+            // console.log('[validation] ' + response.data)
             if (response.status === 201) {
                 const USER_OBJECT = {
                     userInfo: {
@@ -60,7 +66,6 @@ export const validateMe = createAsyncThunk(
             
         }
         catch (error) {
-            logOut()
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)
             } else {

@@ -8,18 +8,20 @@ export const Deny = () => {
     const navigate = useNavigate();
     const path = location.pathname.slice(1);
     const messages = {
-        "login": "You are already logged in.",
-        "register": "You are already logged in.",
         "profile": "You need to be logged in to access this page.",
         "goals": "You need to be logged in to access this page.",
         "logout": "You need to be logged in to access this page.",
     }
 
     useEffect( ()=> {
+        if (path === 'login' || path === 'register') navigate("/")
         setTimeout(() => {
             navigate("/");
-        }, 500);
+        }, 1000);
     }, [location])
+
+    
+
     return(
         <>
             <BigHeader text={"Access denied."}/>
@@ -27,6 +29,7 @@ export const Deny = () => {
                 <p className="deny">
                     {`${messages[path]}`}
                 </p>
+                
             </div>
         </>
     )
