@@ -6,7 +6,7 @@ const User = require('../models/userModel')
 
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {
-        expiresIn: '2m',
+        expiresIn: '150s',
     })
 }
 
@@ -46,7 +46,8 @@ const registerUser = asyncHandler( async (request, response) => {
             _id: user.id,
             name: user.name,
             email: user.email,
-            token: generateToken(user.id)
+            token: generateToken(user.id),
+            createdAt: user.createdAt
         })
     }else {
         response.status(400).json({
@@ -65,13 +66,14 @@ const loginUser = asyncHandler( async (request, response) => {
     
 
     if (user && (await bcrypt.compare(password, user.password))) {
-        const {_id, name} = user;
+        const {_id, name, createdAt} = user;
         response.status(201).json(
             {
                 token: generateToken(_id),
                 id: _id,
                 name,
-                email
+                email,
+                createdAt,
             }
         )
     }
@@ -85,13 +87,14 @@ const loginUser = asyncHandler( async (request, response) => {
 
 // Private route: GET /api/user/me
 const getCurrentUser = asyncHandler( async (request, response) => {
-        const {_id, name, email} = await User.findById(request.user.id)
+        const {_id, name, email, createdAt} = await User.findById(request.user.id)
         response.status(201).json(
             {
                 token: generateToken(_id),
                 id: _id,
                 name,
                 email,
+                createdAt
             }
         )
 })

@@ -9,13 +9,14 @@ export const loginUser = createAsyncThunk(
     async (USER_DATA, {rejectWithValue}) => {
         try {
             const response = await axios.post(API_URL + 'login/', USER_DATA)
-            const { token, id, name, email } = response.data
+            const { token, id, name, email, createdAt } = response.data
             if (response.status === 201) {
                 const USER_OBJECT = {
                     userInfo: {
                         email,
                         id,
                         name,
+                        createdAt,
                     },
                     userToken: token
                 }
@@ -49,7 +50,7 @@ export const validateMe = createAsyncThunk(
         };
         try {
             const response = await axios.get(API_URL + 'me/', config)
-            const { token, id, name, email } = response.data
+            const { token, id, name, email, createdAt } = response.data
             // console.log('[validation] ' + response.data)
             if (response.status === 201) {
                 const USER_OBJECT = {
@@ -57,6 +58,7 @@ export const validateMe = createAsyncThunk(
                         email,
                         id,
                         name,
+                        createdAt
                     },
                     userToken: token
                 }

@@ -140,6 +140,7 @@ export const LoginForm = () => {
             }}
             value={email}
             required
+            autoComplete="email"
             />
  
             <Input type='password' placeholder='Password' inputFunc={ (inputElement) => {
@@ -147,6 +148,7 @@ export const LoginForm = () => {
             }}
             value={password}
             required={true}
+            autoComplete="password"
             />
 
 

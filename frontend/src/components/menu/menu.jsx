@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { MenuResetAll, MenuSetActive } from "./functions/menuFunctions";
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from "../../redux/auth/authActions";
-
+import { TimeLeft } from "./timeleft/timeleft";
 export const Menu = () => {
     const location = useLocation()
     const authSelector = useSelector( state => state.auth)
@@ -25,6 +25,7 @@ export const Menu = () => {
         <MenuContainer>
             { userName ? (
             <>
+                <TimeLeft />
                 <MenuElement url="/" text="Logout" onclick={() => dispatch(logOut())}/>
                 <MenuElement url="goals" text="My goals"/>
                 <MenuElement url="profile" text={`Hi, ${userName}`} />

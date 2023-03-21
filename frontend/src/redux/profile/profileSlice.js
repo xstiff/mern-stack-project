@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    current_page: "Profile"
+    current_page: "Profile",
+    show_delete: false,
 }
 
 
@@ -14,12 +15,16 @@ export const profileSlice = createSlice({
     reducers: {
         changePage: (state, {payload}) => {
             state.current_page = payload
-        }
+        },
+        toggleDelete: (state, {payload}) => {
+            state.show_delete = payload
+        },
+        
     }
 });
 
 
-export const { changePage } = profileSlice.actions
+export const { changePage, toggleDelete } = profileSlice.actions
 
 
 export default profileSlice.reducer

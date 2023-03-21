@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Menu } from './components/menu/menu';
 import {BrowserRouter as Router, Routes, Route, redirect} from 'react-router-dom'
 //
@@ -17,7 +17,30 @@ import { ToastContainer } from 'react-toastify';
 import './App.scss'
 import { NotFound } from './pages/notFound/notFound';
 
+import {useSelector, useDispatch} from 'react-redux';
+import { reduceTime } from './redux/auth/authSlice';
+import { validateMe } from './redux/auth/authActions';
+import { Spinner } from './components/spinner/spinner';
+
 const App = () => {
+  const authSelector = useSelector( state => state.auth)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setInterval(() => {
+        dispatch(reduceTime()) 
+      }, 1000);
+    }
+
+    if(authSelector.userToken) {
+      dispatch(validateMe(authSelector.userToken))
+    }
+  }, [])
+
+
+
+
 
   return (
     <>
