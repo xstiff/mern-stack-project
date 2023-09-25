@@ -1,8 +1,6 @@
 # Express & MongoDB Rest API
 
-What is not working:<br />
- - goals<br />
- <br />
+
 <a href="https://appmern.herokuapp.com/">Link to demo</a>
 
 <br />
@@ -16,3 +14,5 @@ I have made a documentation for this API under <a href="https://dominiks-organiz
 <img src="https://raw.githubusercontent.com/xstiff/mern-stack-project/main/images/image_profile_2.png" alt="profile2" width="950px" height="465"/>
 <img src="https://raw.githubusercontent.com/xstiff/mern-stack-project/main/images/image_profile_3.png" alt="profile3" width="950px" height="465"/>
 <img src="https://raw.githubusercontent.com/xstiff/mern-stack-project/main/images/refresh.png" alt="refresh"/>
+
+It is not fully finished.
